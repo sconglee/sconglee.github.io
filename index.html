@@ -344,137 +344,22 @@
       
         
           
-            <h4 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h4><p>主板：华硕X99-aII</p>
-<p>CPU:  Intel i7-6850K</p>
-<p>显卡：华硕GTX 1080Ti OC * 2</p>
-<p>内存：海盗船复仇者8G*4  2400MHZ</p>
-<p>SSD: 三星SM961 256G</p>
-<p>电源：海盗船AX1200i 全模组</p>
-<p>机箱：海盗船AIR 540</p>
-<p>散热器：海盗船H100i 一体式双排水冷</p>
-<p><img src="/images/figures/2017-11-30-01.jpeg" alt="机箱"></p>
-<h4 id="一、系统安装"><a href="#一、系统安装" class="headerlink" title="一、系统安装"></a>一、系统安装</h4><p>采用Ubuntu16.04，具体安装过程参见我之前的<br><a href="https://sconglee.github.io/posts/%E5%9C%A8UEFI%E6%A8%A1%E5%BC%8F%E4%B8%8B%E5%AE%89%E8%A3%85Ubuntu16.04%E4%B8%8EWindows%E5%8F%8C%E5%90%AF%E5%8A%A8" target="_blank" rel="noopener">博客</a></p>
-<p>本次安装也出现了较双系统安装从未出现的问题：</p>
-<ul>
-<li>U盘启动盘不能被正常引导，开机后直接进入黑屏。。可以通过临时修改grub进入安装界面</li>
-</ul>
-<p>开机启动后按住Esc或是Right Shift进入以下界面</p>
-<p><img src="/images/figures/2017-11-30-02.png" alt=""></p>
-<p>选择第一项，按下e键就进入以下</p>
-<p><img src="/images/figures/2017-11-30-03.png" alt=""></p>
-<p>将图中的quiet splash 改为 nomodeset，然后按Ctrl+X进行boot，即可进入安装界面。</p>
-<ul>
-<li><p>以上方法仅仅是解决了第一次安装系统时不能正常引导的问题，当成功安装系统后重启，就会再次出现黑屏界面，所以要想从根本上解决问题，就必须更新grub。</p>
-<p>$ sudo nano /etc/default/grub</p>
-<p>添加nomodeset到GRUB_CMDLINE_LINUX_DEFAULT:</p>
-<p>GRUB_DEFAULT=0</p>
-<p>GRUB_HIDDEN_TIMEOUT=0</p>
-<p>GRUB_HIDDEN_TIMEOUT_QUIET=true</p>
-<p>GRUB_TIMEOUT=5</p>
-<p>GRUB_DISTRIBUTOR=<code>lsb_release -i -s 2&gt; /dev/null || echo Debian</code></p>
-<p>GRUB_CMDLINE_LINUX_DEFAULT=”quiet splash nomodeset”</p>
-<p>GRUB_CMDLINE_LINUX=””</p>
-<p>然后Ctrl+O保存，Ctrl+X退出</p>
-<p>$ sudo update-grub</p>
-</li>
-</ul>
-<p>这样就不会再出现开机黑屏的现象。</p>
-<h4 id="二、安装CUDA、CUDNN-英伟达GPU加速框架"><a href="#二、安装CUDA、CUDNN-英伟达GPU加速框架" class="headerlink" title="二、安装CUDA、CUDNN 英伟达GPU加速框架"></a>二、安装CUDA、CUDNN 英伟达GPU加速框架</h4><h5 id="1、安装显卡驱动。"><a href="#1、安装显卡驱动。" class="headerlink" title="1、安装显卡驱动。"></a>1、安装显卡驱动。</h5><p>  先看一下自己的电脑对应的驱动版本。<br>  使用命令：ubuntu-drivers devices 会显示一个recommend的驱动版本。一般是三位数的，比如1080的显卡是384，950对应的是375。<br>  得到版本号之后，输入命令：</p>
-<p>  $ sudo apt-get install nvidia-384 //最后三位是自己显卡驱动的版本号</p>
-<h5 id="2、安装CUDA8-0点击下载"><a href="#2、安装CUDA8-0点击下载" class="headerlink" title="2、安装CUDA8.0点击下载"></a>2、安装CUDA8.0<a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">点击下载</a></h5><p>  进去之后，选择Linux-&gt;x86_64-&gt;Ubuntu-&gt;16.04-&gt;runfile(local)<br>  即可下载，大概是一个多G，如果需要注册啥的，注册个就好。<br>  注意：以上只是一种下载CUDA8.0的方式。<br>  当然你可以通过命令一步到位：</p>
-<p>  $ wget <a href="https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run" target="_blank" rel="noopener">https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run</a></p>
-<p>  然后就是这个命令：</p>
-<p>  $ sudo sh cuda_8.0.61_375.26_linux-run –override –silent –toolkit</p>
-<p>  安装的cuda在/usr/local/cuda下面。</p>
-<h5 id="3、安装Cudnn-8-0-v6-0，注意这里一定要装6-0的，不然后面会出现这种问题："><a href="#3、安装Cudnn-8-0-v6-0，注意这里一定要装6-0的，不然后面会出现这种问题：" class="headerlink" title="3、安装Cudnn 8.0 v6.0，注意这里一定要装6.0的，不然后面会出现这种问题："></a>3、安装Cudnn 8.0 v6.0，注意这里一定要装6.0的，不然后面会出现这种问题：</h5><p>   （假设你装的是v5.0的）ImportError:libcudart.so.6.0:cannotopen shared object file:No such file or directory<br>   如何安装和下载？ 用以下几条命令即可：<br>   首先是： </p>
-<p>   $ wget <a href="http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0-rc.tgz" target="_blank" rel="noopener">http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0-rc.tgz</a><br>   意思是获取这个压缩文件。</p>
-<p>   然后，是这样的：</p>
-<p>   $ sudo cp cudnn-8.0-linux-x64-v6.0-rc.tgz /usr/local/cuda</p>
-<p>   $ cd /usr/local/cuda</p>
-<p>   $ tar -xzvf cudnn-8.0-linux-x64-v6.0.tgz</p>
-<p>   $ sudo cp cuda/include/cudnn.h /usr/local/cuda/include</p>
-<p>   $ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64</p>
-<p>   $ sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*</p>
-<p>   最后就是，将以下两个路径加入到环境变量中。<br>   具体做法是，输入 vim  ~/.bashrc<br>   输入i进入编辑模式，在末尾添加：</p>
-<p>   export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/</p>
-<p>   export LD_LIBRARY_PATH=”$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64”</p>
-<p>  export CUDA_HOME=/usr/local/cuda<br>  然后保存并退出。</p>
-<p>   最后，输入pip install tensorflow-gpu就可以大功告成。</p>
-<h4 id="三、SSH的安装"><a href="#三、SSH的安装" class="headerlink" title="三、SSH的安装"></a>三、SSH的安装</h4><p>SSH是指Secure Shell,是一种安全的传输协议，Ubuntu客户端可以通过SSH访问远程服务器。SSH分客户端openssh-client和openssh-server如果你只是想登陆别的机器的SSH只需要安装openssh-client（ubuntu有默认安装，如果没有则sudoapt-get install openssh-client），如果要使本机开放SSH服务就需要安装openssh-server。</p>
-<ul>
-<li><p>安装服务端</p>
-<p>  Ubuntu缺省没有安装SSH Server，使用以下命令安装：</p>
-<p>  $ sudo apt-get install openssh-server</p>
-<p>  然后确认sshserver是否启动了：（或用“netstat -tlp”命令）</p>
-<p>  $ ps -e | grep ssh</p>
-<p>  如果只有ssh-agent那ssh-server还没有启动，需要/etc/init.d/ssh start，如果看到sshd那说明ssh-server已经启动了。<br>  如果没有则可以这样启动：</p>
-<p>  $ sudo/etc/init.d/ssh start</p>
-</li>
-<li><p>SSH配置</p>
-<p>  ssh-server配置文件位于/etc/ssh/sshd_config，在这里可以定义SSH的服务端口，默认端口是22，你可以自己定义成其他端口号，如222。然后重启SSH服务：</p>
-<p>  $ sudo /etc/init.d/sshresart<br>  通过修改配置文件/etc/ssh/sshd_config，可以改ssh登录端口和禁止root登录。改端口可以防止被端口扫描。</p>
-<p>  $ sudo cp/etc/ssh/sshd_config /etc/ssh/sshd_config.original  </p>
-<p>  $ sudo chmod a-w /etc/ssh/sshd_config.original<br>  编辑配置文件：</p>
-<p>  gedit /etc/ssh/sshd_config<br>  找到#Port 22，去掉注释，修改成一个五位的端口：<br>  Port 22333</p>
-<p>  找到#PermitRootLogin yes，去掉注释，修改为：PermitRootLogin no<br>  配置完成后重启：</p>
-<p>  $ sudo/etc/init.d/ssh restart  </p>
-</li>
-<li><p>SSH服务命令</p>
-<p>  停止服务：sudo /etc/init.d/ssh stop</p>
-<p>  启动服务：sudo /etc/init.d/ssh start</p>
-<p>  重启服务：sudo /etc/init.d/sshresart</p>
-<p>  断开连接：exit</p>
-<p>  登录：ssh root@192.168.0.100</p>
-<p>  $ ifconfig 可以查看IP地址</p>
-</li>
-</ul>
-<h4 id="四、Ubuntu用户管理"><a href="#四、Ubuntu用户管理" class="headerlink" title="四、Ubuntu用户管理"></a>四、Ubuntu用户管理</h4><ul>
-<li><p>添加用户</p>
-<p>首先打开终端，输入：sudo adduser test，系统会提示以下信息：</p>
-</li>
-</ul>
-<p><img src="/images/figures/2017-11-30-04.png" alt=""></p>
-<p>  到了这一步，新用户已经添加成功了，此时我们可以打 ls /home查看一下，可以看到test目录。</p>
-<ul>
-<li><p>删除用户</p>
-<p>$ sudo userdel test </p>
-<p>删除成功后，系统无任何提示</p>
-</li>
-<li><p>添加用户权限</p>
-<p>$ sudo vim /etc/sudoers</p>
-</li>
-</ul>
-<h4 id="五、深度学习环境安装"><a href="#五、深度学习环境安装" class="headerlink" title="五、深度学习环境安装"></a>五、深度学习环境安装</h4><ul>
-<li>TensorFlow的安装还是挺简单的，<a href="http://tflearn.org/installation/" target="_blank" rel="noopener">详细参考</a></li>
-<li><p>OpenCV</p>
-<p>  Python 3.5+OpenCV3.4.0</p>
-<p>  1、首先更新相关的package</p>
-<p>  $ sudo apt-get update</p>
-<p>  $ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</p>
-<p>  2、下载OpenCV的源码</p>
-<p>  $ wget -O opencv.zip <a href="https://github.com/Itseez/opencv/archive/3.4.0.zip" target="_blank" rel="noopener">https://github.com/Itseez/opencv/archive/3.4.0.zip</a></p>
-<p>  $ unzip opencv.zip </p>
-<p>  3、编译安装</p>
-<p>  $ cd opencv-3.4.0  </p>
-<p>  $ mkdir build  </p>
-<p>  $ cd build</p>
-<p>  $ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local .. </p>
-<p>  $ make </p>
-<p>  $ sudo make install  </p>
-<p>  4、测试是否成功</p>
-<p>  $ python</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="keyword">import</span> cv2</span><br><span class="line">&gt;&gt; cv2.__version__</span><br><span class="line"><span class="string">'3.4.0'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="DELAY"><a href="#DELAY" class="headerlink" title="DELAY"></a>DELAY</h4><p>普通用户可以正常使用Python环境，但不能import TensorFlow？？？解决办法：</p>
-<p>$ vim ~/.bashrc</p>
-<p>加入自己的环境变量</p>
-<p>export LD_LIBRARY_PATH=/usr/local/cuda/lib64/</p>
-<p>export CUDA_HOME=/usr/local/cuda</p>
-<p>$ source ~/.bashrc</p>
-<hr>
-
-          
+          服务器配置主板：华硕X99-aII
+CPU:  Intel i7-6850K
+显卡：华硕GTX 1080Ti OC * 2
+内存：海盗船复仇者8G*4  2400MHZ
+SSD: 三星SM961 256G
+电源：海盗船AX1200i 全模组
+机箱：海盗船AIR 540
+散热器：海盗船H100i 一体
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/30/实验室级别深度学习装机教程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -592,8 +477,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/06/test-my-site/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
