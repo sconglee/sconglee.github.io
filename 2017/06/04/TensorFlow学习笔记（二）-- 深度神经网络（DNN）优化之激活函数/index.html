@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：    类型 取值范围 描">
+<meta name="description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：     类型 取值范围">
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数">
 <meta property="og:url" content="http://yoursite.com/2017/06/04/TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数/index.html">
 <meta property="og:site_name" content="sconglee">
-<meta property="og:description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：    类型 取值范围 描">
+<meta property="og:description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：     类型 取值范围">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/figures/2017-06-04-01.jpg">
 <meta property="og:image" content="http://yoursite.com/images/figures/2017-06-04-02.png">
@@ -100,7 +100,7 @@
 <meta property="og:updated_time" content="2018-02-07T10:29:20.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数">
-<meta name="twitter:description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：    类型 取值范围 描">
+<meta name="twitter:description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：     类型 取值范围">
 <meta name="twitter:image" content="http://yoursite.com/images/figures/2017-06-04-01.jpg">
 
 
@@ -369,6 +369,7 @@
       
         <h4 id="激活函数（Activation-function）"><a href="#激活函数（Activation-function）" class="headerlink" title="激活函数（Activation function）"></a>激活函数（Activation function）</h4><p>维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。</p>
 <p>因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -395,6 +396,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>神经网络中，运算特征是在不断进行循环计算，所以在每代的循环过程中，每个神经元的值也是在不断变化的。这就导致tanh特征相差明显时结果会更理想，在循环过程中会不断扩大特征效果显示出来，但有时候特征相差比较复杂或是相差不大时，就需要更加细粒度的分类去判断，这时sigmoid的效果就会好很多。而ReLu就是取max(0, x)，因为神经网络不断反复计算，实际上就变成了它在不断试探如何用一个大多数为0的矩阵刻画数据特征，因为稀疏特性（数据有冗余，但近似程度的最大保留数据特征可以用大多数元素为0的稀疏举证来实现）的存在，反而这种方法运算快效果又好，所以目前大多用ReLu代替sigmoid函数。</p>
 <h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>有这样一个需求，将下面的红蓝点进行正确的分类，其实就是二分类问题。</p>
 <p><img src="/images/figures/2017-06-04-01.jpg" alt="二分图"></p>
@@ -405,10 +407,8 @@
 <p>可以看到该样本点不是线性可分的，一条直线怎么动都不可能完全正确的将三角形和圆形分开，有同学会说用多个感知器来进行组合，以求获得更大的分类问题，上图我们看下是否可行：</p>
 <p><img src="/images/figures/2017-06-04-04.png" alt="多层感知机"></p>
 <p>好的，我们已经得到多层感知机分类器了，那么分类能力是否就能将样本点正确分开呢，还是分析一下，我们得到的:</p>
-<p>$$y=w<em>{2-1}(w</em>{1-11}x<em>1+w</em>{1-21}x<em>2+b</em>{1-1})+w<em>{2-2}(w</em>{1-12}x<em>1+w</em>{1-22}x<em>2+b</em>{1-2})+w<em>{2-3}(w</em>{1-13}x<em>1+w</em>{1-23}x<em>2+b</em>{1-3})$$</p>
-<p>对这个公式合并同类项后得到：</p>
-<p>$$y=x<em>1(w</em>{2-1}w<em>{1-11}+w</em>{2-2}w<em>{1-12}+w</em>{2-3}w_{1-13})+x<em>2(w</em>{2-1}w<em>{1-21}+w</em>{2-2}w<em>{1-22}+w</em>{2-3}w<em>{1-23})+w</em>{2-1}b<em>{1-1}+w</em>{2-2}b<em>{1-2}+w</em>{2-3}b_{1-3}$$</p>
-<p>大家可以看出，不管它怎么组合，最终都是线性方程的组合，得到的分类器本质上还是一个线性方程，也就仍不能解决非线性问题。</p>
+<script type="math/tex; mode=display">y=w_{2-1}(w_{1-11}x_1+w_{1-21}x_2+b_{1-1})+w_{2-2}(w_{1-12}x_1+w_{1-22}x_2+b_{1-2})+w_{2-3}(w_{1-13}x_1+w_{1-23}x_2+b_{1-3})</script><p>对这个公式合并同类项后得到：</p>
+<script type="math/tex; mode=display">y=x_1(w_{2-1}w_{1-11}+w_{2-2}w_{1-12}+w_{2-3}w_{1-13})+x_2(w_{2-1}w_{1-21}+w_{2-2}w_{1-22}+w_{2-3}w_{1-23})+w_{2-1}b_{1-1}+w_{2-2}b_{1-2}+w_{2-3}b_{1-3}</script><p>大家可以看出，不管它怎么组合，最终都是线性方程的组合，得到的分类器本质上还是一个线性方程，也就仍不能解决非线性问题。</p>
 <p>就像下图，直线无论在平面上如何旋转，都不能将样本点分开</p>
 <p><img src="/images/figures/2017-06-04-05.png" alt="直线旋转图"></p>
 <p>既然是非线性问题，总有线性方程不能正确分类的地方，上面的线性方程组合过程其实类似在做如下三条直线的组合，如图：</p>
@@ -421,7 +421,7 @@
 <p><img src="/images/figures/2017-06-04-09.png" alt="非线性组合"></p>
 <p>最后再通过最优化损失函数，不断训练优化，我们可以学习到能够正确分类的曲线，至于具体是什么样，谁也不知道。。maybe是下面的这个</p>
 <p><img src="/images/figures/2017-06-04-10.png" alt="非线性曲线"></p>
-<p>end, 基于以上我们也就解释了一个观点–激活函数是用来加入非线性因素的，解决线性模型不能解决的问题。</p>
+<p>end, 基于以上我们也就解释了一个观点—激活函数是用来加入非线性因素的，解决线性模型不能解决的问题。</p>
 <hr>
 <h4 id="more-information"><a href="#more-information" class="headerlink" title="more information"></a>more information</h4><p><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.740.9413&amp;rep=rep1&amp;type=pdf" target="_blank" rel="noopener">Performance Analysis of Various Activation Functions in<br>Generalized MLP Architectures of Neural Networks</a></p>
 
@@ -1303,7 +1303,24 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 

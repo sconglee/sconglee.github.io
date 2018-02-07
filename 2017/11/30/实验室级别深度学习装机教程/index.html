@@ -401,7 +401,7 @@
 <h5 id="2、安装CUDA8-0点击下载"><a href="#2、安装CUDA8-0点击下载" class="headerlink" title="2、安装CUDA8.0点击下载"></a>2、安装CUDA8.0<a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">点击下载</a></h5><p>  进去之后，选择Linux-&gt;x86_64-&gt;Ubuntu-&gt;16.04-&gt;runfile(local)<br>  即可下载，大概是一个多G，如果需要注册啥的，注册个就好。<br>  注意：以上只是一种下载CUDA8.0的方式。<br>  当然你可以通过命令一步到位：</p>
 <p>  $ wget <a href="https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run" target="_blank" rel="noopener">https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run</a></p>
 <p>  然后就是这个命令：</p>
-<p>  $ sudo sh cuda_8.0.61_375.26_linux-run –override –silent –toolkit</p>
+<p>  $ sudo sh cuda_8.0.61_375.26_linux-run —override —silent —toolkit</p>
 <p>  安装的cuda在/usr/local/cuda下面。</p>
 <h5 id="3、安装Cudnn-8-0-v6-0，注意这里一定要装6-0的，不然后面会出现这种问题："><a href="#3、安装Cudnn-8-0-v6-0，注意这里一定要装6-0的，不然后面会出现这种问题：" class="headerlink" title="3、安装Cudnn 8.0 v6.0，注意这里一定要装6.0的，不然后面会出现这种问题："></a>3、安装Cudnn 8.0 v6.0，注意这里一定要装6.0的，不然后面会出现这种问题：</h5><p>   （假设你装的是v5.0的）ImportError:libcudart.so.6.0:cannotopen shared object file:No such file or directory<br>   如何安装和下载？ 用以下几条命令即可：<br>   首先是： </p>
 <p>   $ wget <a href="http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0-rc.tgz" target="_blank" rel="noopener">http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0-rc.tgz</a><br>   意思是获取这个压缩文件。</p>
@@ -1365,7 +1365,24 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
