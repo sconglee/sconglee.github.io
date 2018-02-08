@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://yoursite.com/images/figures/2017-06-04-08.png">
 <meta property="og:image" content="http://yoursite.com/images/figures/2017-06-04-09.png">
 <meta property="og:image" content="http://yoursite.com/images/figures/2017-06-04-10.png">
-<meta property="og:updated_time" content="2018-02-08T13:37:52.793Z">
+<meta property="og:updated_time" content="2018-02-08T13:41:03.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数">
 <meta name="twitter:description" content="激活函数（Activation function）维基百科的解释是，一个节点的激活函数定义了该节点在给定的输入或输入的集合下的输出。不要误解是指这个函数去激活什么，而是指如何把“激活的神经元的特征”通过函数把特征保留并映射出来，这是神经网络能解决非线性问题的关键。 因为神经网络的数学基础是处处可微的，所以选取的激活函数也要保证数据的输入和输出也是可微的，常见的激活函数有：     类型 取值范围">
@@ -408,7 +408,7 @@
 <p><img src="/images/figures/2017-06-04-04.png" alt="多层感知机"></p>
 <p>好的，我们已经得到多层感知机分类器了，那么分类能力是否就能将样本点正确分开呢，还是分析一下，我们得到的:</p>
 <script type="math/tex; mode=display">y=w_{2-1}(w_{1-11}x_1+w_{1-21}x_2+b_{1-1})+w_{2-2}(w_{1-12}x_1+w_{1-22}x_2+b_{1-2})\\\\+w_{2-3}(w_{1-13}x_1+w_{1-23}x_2+b_{1-3})</script><p>对这个公式合并同类项后得到：</p>
-<script type="math/tex; mode=display">y=x_1(w_{2-1}w_{1-11}+w_{2-2}w_{1-12}+w_{2-3}w_{1-13})+x_2(w_{2-1}w_{1-21}+w_{2-2}w_{1-22}+w_{2-3}w_{1-23})+w_{2-1}b_{1-1}+w_{2-2}b_{1-2}+w_{2-3}b_{1-3}</script><p>大家可以看出，不管它怎么组合，最终都是线性方程的组合，得到的分类器本质上还是一个线性方程，也就仍不能解决非线性问题。</p>
+<script type="math/tex; mode=display">y=x_1(w_{2-1}w_{1-11}+w_{2-2}w_{1-12}+w_{2-3}w_{1-13})+x_2(w_{2-1}w_{1-21}+w_{2-2}w_{1-22}\\\\+w_{2-3}w_{1-23})+w_{2-1}b_{1-1}+w_{2-2}b_{1-2}+w_{2-3}b_{1-3}</script><p>大家可以看出，不管它怎么组合，最终都是线性方程的组合，得到的分类器本质上还是一个线性方程，也就仍不能解决非线性问题。</p>
 <p>就像下图，直线无论在平面上如何旋转，都不能将样本点分开</p>
 <p><img src="/images/figures/2017-06-04-05.png" alt="直线旋转图"></p>
 <p>既然是非线性问题，总有线性方程不能正确分类的地方，上面的线性方程组合过程其实类似在做如下三条直线的组合，如图：</p>
