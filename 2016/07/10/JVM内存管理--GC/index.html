@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习,Java," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -79,15 +79,27 @@
 
 
 
-<meta name="keywords" content="深度学习,Java">
+<meta name="description" content="官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。 JVM主要管理两类内存： 堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。 非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，J">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test_my_site">
-<meta property="og:url" content="http://yoursite.com/2017/02/06/test-my-site/index.html">
+<meta property="og:title" content="JVM内存管理--GC">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/JVM内存管理--GC/index.html">
 <meta property="og:site_name" content="sconglee">
+<meta property="og:description" content="官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。 JVM主要管理两类内存： 堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。 非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，J">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-06T11:33:48.746Z">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-01.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-02.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-03.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-04.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-05.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-06.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-07.png">
+<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-08.png">
+<meta property="og:updated_time" content="2018-02-09T13:56:59.741Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test_my_site">
+<meta name="twitter:title" content="JVM内存管理--GC">
+<meta name="twitter:description" content="官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。 JVM主要管理两类内存： 堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。 非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，J">
+<meta name="twitter:image" content="http://yoursite.com/images/figures/2016-07-10-01.png">
 
 
 
@@ -117,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/06/test-my-site/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/10/JVM内存管理--GC/"/>
 
 
 
 
 
-  <title>test_my_site | sconglee</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>JVM内存管理--GC | sconglee</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -274,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/06/test-my-site/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/10/JVM内存管理--GC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sconglee">
@@ -291,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">test_my_site</h1>
+          <h1 class="post-title" itemprop="name headline">JVM内存管理--GC</h1>
         
 
         <div class="post-meta">
@@ -303,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-06T10:02:06+08:00">
-                2017-02-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-10T22:50:11+08:00">
+                2016-07-10
               </time>
             
 
@@ -321,7 +333,7 @@
 
           
           
-             <span id="/2017/02/06/test-my-site/" class="leancloud_visitors" data-flag-title="test_my_site">
+             <span id="/2016/07/10/JVM内存管理--GC/" class="leancloud_visitors" data-flag-title="JVM内存管理--GC">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,7 +365,49 @@
       
 
       
-        
+        <p>官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。</p>
+<p>JVM主要管理两类内存：</p>
+<p>堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。</p>
+<p>非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，JVM会提取其中的类信息，并将这些类信息放到方法区中），JVM内部处理或优化所需的内存、类结构（如运行时常数池，字段和方法数据）以及方法和构造方法的代码—-即存放类加载信息。</p>
+<p>在程序运行期间如果想进行垃圾回收，就必须让GC线程与程序当中的线程互相配合，才能在不影响程序运行的前提下，顺利的将垃圾进行回收。</p>
+<h3 id="GC策略要解决的问题："><a href="#GC策略要解决的问题：" class="headerlink" title="GC策略要解决的问题："></a>GC策略要解决的问题：</h3><h4 id="1、哪些对象可以被回收"><a href="#1、哪些对象可以被回收" class="headerlink" title="1、哪些对象可以被回收"></a>1、哪些对象可以被回收</h4><p>引用计数算法—-效率高，但对于循环引用的对象无法进行回收</p>
+<p>根搜索算法—-jvm普遍采用的算法，原理是设立若干种根对象，当任何一个根对象到某一个对象不可达时，则认为该对象是可以被回收的。</p>
+<p>可以当作GC roots的对象有以下几种：</p>
+<p>a、虚拟机栈中的引用的对象</p>
+<p>b、方法区中的类静态属性引用的对象</p>
+<p>c、方法区中的常量引用的对象，主要指的是声明为final的常量值</p>
+<p>d、本地方法栈中JNI的引用的对象</p>
+<p>a和d都是指的方法的本地变量表</p>
+<h4 id="2、什么时候回收这些对象"><a href="#2、什么时候回收这些对象" class="headerlink" title="2、什么时候回收这些对象"></a>2、什么时候回收这些对象</h4><p>概括的说触发主GC的条件：a、当应用程序空闲时，即没有应用程序在运行时，GC会被调用 b、Java堆内存不足时，GC也会被调用。</p>
+<p>首先明确一点，GC经常发生的区域是堆区，堆区还可以细分为新生代、老年代，新生代还分为一个Eden区和两个Survivor区。</p>
+<p>2.1、对象优先在Eden中分配，当Eden中没有足够空间时，虚拟机将发生一次MinorGC，因为Java大多数对象都是朝生夕灭，所以Minor GC非常频繁，而且速度也很快。</p>
+<p>2.2、Full GC，发生在老年代的GC，当老年代没有足够的空间时即发生FullGC，并且一般都会伴随有MinorGC。大对象直接进入老年代，如很长的字符串，虚拟机提供一个参数，令大于这个参数值得对象直接在老年代中分配，避免在Eden区和Survivor区发生大量的内存拷贝。</p>
+<p>2.3、发生MinorGC时，虚拟机会检测之前每次晋升到老年代的平均大小是否大于老年代的剩余空间，如果大于，则进行一次FullGC，如果小于，则查看HandlePromotionFailure设置是否允许担保失败，如果允许，那只会进行一次Minor GC，如果不允许，则改为进行一次Full GC。</p>
+<h4 id="3、采用什么方式回收"><a href="#3、采用什么方式回收" class="headerlink" title="3、采用什么方式回收"></a>3、采用什么方式回收</h4><p><strong>标记/清除算法</strong>—-原理是当堆中的有效内存空间被耗尽的时候，就会停止整个程序，然后进行两项工作：标记—-其实就是遍历所有的GC roots，然后将所有可达的对象标记为存活对象清除—-遍历堆中的所有对象，将没有标记的对象全部清除掉。</p>
+<p><img src="/images/figures/2016-07-10-01.png" alt="标记清除1"><br><img src="/images/figures/2016-07-10-02.png" alt="标记清除2"><br><img src="/images/figures/2016-07-10-03.png" alt="标记清除3"></p>
+<p>缺点: 效率比较低（递归与全堆对象遍历），而且在进行GC的时候，需要停止应用程序，导致用户体验差、、这种方式清理出来的空闲内存不是连续的。</p>
+<p><strong>复制算法</strong>—-将内存划分为两个区间，在任意时间点上，所有动态分配的对象都只能在其中一个区间（称为活动区间），而另一个区间（称为空闲区间）则是空闲的。当有效内存空间耗尽时，JVM将暂停程序运行，开启复制算法GC线程，会将活动区间内的存活对象全部复制到空闲区间，且严格按照内存地址依次排列，与此同时，GC线程将更新存活对象的内存引用地址指向新的内存地址。空闲区间与活动区间交换的同时，垃圾对象已经被一次性全部回收。不难想象，在下一次GC之后，此时的空闲区间又将变为活动区间，依次循环交替。</p>
+<p><img src="/images/figures/2016-07-10-04.png" alt="复制1"><br><img src="/images/figures/2016-07-10-05.png" alt="复制2"></p>
+<p>复制算法弥补了标记/清除算法中，内存布局混乱的缺点，但它本身缺点也是很明显的:</p>
+<p>1、她浪费了一半的内存，这太要命了 </p>
+<p>2、复制这项工作所花费的时间，在对象成活率很高的情况下，将变得不可忽视</p>
+<p><strong>标记/整理算法</strong>—-也是分两个阶段：<br>标记：遍历GC roots ，然后将存活的对象标记</p>
+<p>整理：移动所有存活的对象，且按照内存地址次序排列，然后将末端内存地址以后的内存全部收回。</p>
+<p><img src="/images/figures/2016-07-10-06.png" alt="标记整理1"><br><img src="/images/figures/2016-07-10-07.png" alt="标记整理2"><br><img src="/images/figures/2016-07-10-08.png" alt="标记整理3"></p>
+<p>如此一来，当我们需要给新对象分配内存时，JVM只需要持有一个内存的起始地址即可，这比维护一个空闲列表显然少了许多开销。</p>
+<p>该算法不仅可以弥补标记/清除算法中内存区域分散的缺点，也消除了复制算法当中内存减半的高额代价，不过它唯一的缺点就是效率不高，不仅要标记所有存活对象，还要整理所有存活对象的引用地址。</p>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>1、三个算法都是基于根搜索算法去判断一个对象是否应该被回收，而支撑根搜索算法的工作的理论依据，就是语法中变量作用域的内容，因此要防止内存泄漏，最根本办法就是掌握好变量作用域。</p>
+<p>2、在GC线程开启时，它们都要暂停应用程序（stop the world）</p>
+<p>效率：复制 &gt; 整理 &gt; 清除（此处的效率只是简单的对比时间复杂度，实际情况不一定）</p>
+<p>内存整齐度： 复制 = 整理 &gt; 清除</p>
+<p>内存利用率： 整理 = 清除 &gt; 复制</p>
+<p>标记/清除算法是叫落后的了，但其余两种算法都是在清除算法上优化改进而来的</p>
+<p><strong>没有最好的算法，只有更合适的算法</strong></p>
+<p><strong>分代搜集算法</strong>—-针对JAVA堆而设计，也就是针对新生代对象和年老代，而存在于方法区的基本上就是不灭对象，不属于分代搜集算法的内容。</p>
+<p>新生代对象—-复制算法</p>
+<p>年老代对象—-标记/整理算法、标记/清除算法</p>
+<p>JVM在进行GC时，大部分时候是普通GC（也就是回收的都是新生代），一般情况下，需要经过好几次普通GC，才会触发一次全局GC（针对年老代）。</p>
+
       
     </div>
     
@@ -399,8 +453,6 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
-          
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
@@ -414,14 +466,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/02/java内存模型/" rel="next" title="java内存模型">
+                <i class="fa fa-chevron-left"></i> java内存模型
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/04/TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数/" rel="prev" title="TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数">
-                TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/03/HashMap源码解析/" rel="prev" title="HashMap源码解析">
+                HashMap源码解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -474,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -494,7 +559,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -507,7 +572,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -560,6 +625,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GC策略要解决的问题："><span class="nav-number">1.</span> <span class="nav-text">GC策略要解决的问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、哪些对象可以被回收"><span class="nav-number">1.1.</span> <span class="nav-text">1、哪些对象可以被回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、什么时候回收这些对象"><span class="nav-number">1.2.</span> <span class="nav-text">2、什么时候回收这些对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、采用什么方式回收"><span class="nav-number">1.3.</span> <span class="nav-text">3、采用什么方式回收</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">2.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

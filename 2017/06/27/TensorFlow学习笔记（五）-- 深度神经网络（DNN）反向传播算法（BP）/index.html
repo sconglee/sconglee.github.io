@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DNN反向传播算法 for what ?在了解DNN的反向传播算法前，我们要先搞清楚反向传播算法是用来解决什么问题的，也就是说，什么时候我们需要使用这个反向传播算法。 这里有个监督学习的一般问题，假设我们有m个训练样本：${(x1,y_1),(x_2,y_2),…,(x_m,y_m)}$，其中$x$ 是输入向量，特征维度为n\_in，而$y$是输出向量，特征维度是n\_out。现在我们需要利用这个">
+<meta name="keywords" content="深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）">
+<meta property="og:url" content="http://yoursite.com/2017/06/27/TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）/index.html">
+<meta property="og:site_name" content="sconglee">
+<meta property="og:description" content="DNN反向传播算法 for what ?在了解DNN的反向传播算法前，我们要先搞清楚反向传播算法是用来解决什么问题的，也就是说，什么时候我们需要使用这个反向传播算法。 这里有个监督学习的一般问题，假设我们有m个训练样本：${(x1,y_1),(x_2,y_2),…,(x_m,y_m)}$，其中$x$ 是输入向量，特征维度为n\_in，而$y$是输出向量，特征维度是n\_out。现在我们需要利用这个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/figures/2017-06-27-01.png">
+<meta property="og:updated_time" content="2018-02-09T14:09:46.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）">
+<meta name="twitter:description" content="DNN反向传播算法 for what ?在了解DNN的反向传播算法前，我们要先搞清楚反向传播算法是用来解决什么问题的，也就是说，什么时候我们需要使用这个反向传播算法。 这里有个监督学习的一般问题，假设我们有m个训练样本：${(x1,y_1),(x_2,y_2),…,(x_m,y_m)}$，其中$x$ 是输入向量，特征维度为n\_in，而$y$是输出向量，特征维度是n\_out。现在我们需要利用这个">
+<meta name="twitter:image" content="http://yoursite.com/images/figures/2017-06-27-01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/27/TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）/"/>
+
+
+
+
+
+  <title>TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP） | sconglee</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sconglee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">你说，我们被世界改变</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sconglee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sconglee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T20:44:52+08:00">
+                2017-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/27/TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）/" class="leancloud_visitors" data-flag-title="TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="DNN反向传播算法-for-what"><a href="#DNN反向传播算法-for-what" class="headerlink" title="DNN反向传播算法 for what ?"></a>DNN反向传播算法 for what ?</h4><p>在了解DNN的反向传播算法前，我们要先搞清楚反向传播算法是用来解决什么问题的，也就是说，什么时候我们需要使用这个反向传播算法。</p>
+<p>这里有个监督学习的一般问题，假设我们有m个训练样本：${(x<em>1,y_1),(x_2,y_2),…,(x_m,y_m)}$，其中$x$ 是输入向量，特征维度为<script type="math/tex">n\_in</script>，而$y$是输出向量，特征维度是<script type="math/tex">n\_out</script>。现在我们需要利用这个样本训练出一个模型，当有一个新的测试样本$(x</em>{test},?)$，我们可以预测$y_{test}$向量的输出。</p>
+<p>如果我们采用DNN的模型，即输入层有<script type="math/tex">n\_in</script>个神经元，输入层有<script type="math/tex">n\_out</script>个神经元，再加上一些含有若干神经元的隐藏层。此时我们还需要找到合适的所有隐藏层和输出层对应的线性系数矩阵$W$，偏置向量$b$，让所有输入的训练样本计算出的输出尽可能等于或很接近样本的输出。那么问题就来了，怎么找到合适的参数尼？</p>
+<p>了解传统机器学习算法的优化过程的话，就会很容易想到可以用一个合适的损失函数来度量训练样本的输出损失，接着对这个损失函数进行优化求最小化的极值，对应的一系列线性系数矩阵$W$，以及偏置向量$b$即为我们的最终结果。在DNN中，损失函数优化极值求解的过程最常见的一般是通过梯度下降法来一步步迭代完成的，当然也可以是其他的迭代方法比如牛顿法与拟牛顿法。</p>
+<p>可以知道，<strong>对DNN的损失函数用梯度下降法进行迭代优化求极值的过程就是我们所说的反向传播算法</strong>。</p>
+<h4 id="DNN反向传播算法的基本思路"><a href="#DNN反向传播算法的基本思路" class="headerlink" title="DNN反向传播算法的基本思路"></a>DNN反向传播算法的基本思路</h4><p>为便于通俗直观的理解该算法，这里我定义了个三层网络，第0层输入层，第一层隐藏层，第二层输出层，并且每个节点没有偏置（有偏置原理完全一样），激活函数为sigmod，其中使用到的符号说明如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$W_{ab}$</td>
+<td style="text-align:center">代表的是节点a到节点b的权重</td>
+</tr>
+<tr>
+<td style="text-align:center">$y_a$</td>
+<td style="text-align:center">代表的是节点a的输出值</td>
+</tr>
+<tr>
+<td style="text-align:center">$Z_a$</td>
+<td style="text-align:center">代表的是节点a的输入值</td>
+</tr>
+<tr>
+<td style="text-align:center">$C$</td>
+<td style="text-align:center">最终损失函数</td>
+</tr>
+<tr>
+<td style="text-align:center">$f(x)=\dfrac{1}{1+e^{-x}}$</td>
+<td style="text-align:center">节点激活函数</td>
+</tr>
+<tr>
+<td style="text-align:center">$W1$</td>
+<td style="text-align:center">左边字母，右边数字，代表第几层的权重</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对应的网络如下：</p>
+<p><img src="/images/figures/2017-06-27-01.png" alt="神经网络"></p>
+<script type="math/tex; mode=display">X=Z_0=\left[
+         \begin{matrix}
+         0.35 \\
+         0.9 
+         \end{matrix}
+         \right]</script><script type="math/tex; mode=display">y_{out}=0.5</script><script type="math/tex; mode=display">W0=\left[
+     \begin{matrix}
+     w_{31} & w_{32} \\
+     w_{41} & w_{42}
+     \end{matrix}
+     \right]
+    =\left[
+    \begin{matrix}
+    0.1 & 0.8 \\
+    0.4 & 0.6 
+    \end{matrix}
+    \right]</script><script type="math/tex; mode=display">W1=\left[
+     \begin{matrix}
+     w_{53} & w_{54}
+     \end{matrix}
+     \right]
+    =\left[
+    \begin{matrix}
+    0.3 & 0.9
+    \end{matrix}
+    \right]</script><p>首先我们先走一遍<strong>正向传播过程</strong>，如下推导:</p>
+<script type="math/tex; mode=display">Z_1=\left[
+      \begin{matrix}
+      Z_3 \\
+      Z_4 
+      \end{matrix}
+      \right]
+    =W0*X
+    =\left[
+     \begin{matrix}
+     w_{31} & w_{32} \\
+     w_{41} & w_{42}
+     \end{matrix}
+     \right]*
+     \left[
+     \begin{matrix}
+     x_1 \\
+     x_2
+     \end{matrix}
+     \right]
+    =\left[
+     \begin{matrix}
+     w_{31}*x_1 + w_{32}*x_2 \\
+     w_{41}*x_1 + w_{42}*x_2
+     \end{matrix}
+     \right]
+    =\left[
+     \begin{matrix}
+     0.755 \\
+     0.68
+     \end{matrix}
+     \right]</script><p>那么隐藏层的输出为：</p>
+<script type="math/tex; mode=display">y_1=\left[
+     \begin{matrix}
+     y_3 \\
+     y_4
+     \end{matrix}
+     \right]
+    =f(Z_1)
+    =f(\left[
+     \begin{matrix}
+     0.755 \\
+     0.68
+     \end{matrix}
+     \right])
+    =f(\left[
+     \begin{matrix}
+     0.680 \\
+     0.663
+     \end{matrix}
+     \right])</script><p>同理可以得到：</p>
+<script type="math/tex; mode=display">Z_2=W1*y_1
+     =\left[
+     \begin{matrix}
+     W_{53} & W_{54}
+     \end{matrix}
+     \right]*
+    \left[
+     \begin{matrix}
+     y_3 \\
+     y_4
+     \end{matrix}
+     \right]
+    =\left[
+     \begin{matrix}
+     0.801
+     \end{matrix}
+     \right]</script><script type="math/tex; mode=display">y_2=f(Z_2)
+     =f(\left[
+     \begin{matrix}
+     0.801
+     \end{matrix}
+     \right])
+    =\left[
+     \begin{matrix}
+     0.690
+     \end{matrix}
+     \right]</script><p>那么最终的损失为：</p>
+<script type="math/tex; mode=display">C=\dfrac{1}{2}(0.690-0.5)^2=0.01805</script><p>对于这个损失值，我们当然是希望这个值越小越好。这也是我们进行多次训练，调节参数的目的，在这个训练的过程中就用到了我们的反向传播算法，实际上反向传播就是梯度下降法中链式法则的使用。</p>
+<p>下面是<strong>反向传播的推导过程</strong></p>
+<p>根据公式，我们有：</p>
+<script type="math/tex; mode=display">\begin{cases}
+  Z_2=W_{53}*y_3+W_{54}*y_4 \\
+  y_2=f(Z_2) \\
+  C=\dfrac{1}{2}(y_2-y_{out})^2 
+  \end{cases}</script><p>这个时候我们需要求出$C$对$W$的偏导，则根据链式法则有：</p>
+<script type="math/tex; mode=display">\dfrac{\partial C}{\partial W_{53}}=\dfrac{\partial C}{\partial y_5}*\dfrac{\partial y_5}{\partial Z_5}*\dfrac{\partial Z_5}{\partial W_{53}}
+
+=(y_5-y_{out})*f(Z_2)*(1-f(Z_2))*y_3
+
+=0.02763</script><p>同理有:</p>
+<script type="math/tex; mode=display">\dfrac{\partial C}{\partial W_{54}}=\dfrac{\partial C}{\partial y_5}*\dfrac{\partial y_5}{\partial Z_5}*\dfrac{\partial Z_5}{\partial W_{54}}
+
+=(y_5-y_{out})*f(Z_2)*(1-f(Z_2))*y_4
+
+=0.02711</script><p>至此我们已经求出最后一层的参数偏导了，继续向前链式推导：</p>
+<p>我们现在还需要求出： $W<em>{31},W</em>{32},W<em>{41},W</em>{42}$ </p>
+<p>已知：</p>
+<script type="math/tex; mode=display">\begin{cases}
+  Z_3=W_{31}*x_1+W_{32}*x_2 \\
+  y_3=f(Z_3) \\
+  Z_5=W_{53}*y_3+W_{54}*y_4 \\
+  y_5=f(Z_5) \\
+  C=\dfrac{1}{2}(y_5-y_{out})^2
+  \end{cases}</script><p>则：</p>
+<script type="math/tex; mode=display">\dfrac{\partial C}{\partial W_{31}}=\dfrac{\partial C}{\partial y_5}*\dfrac{\partial y_5}{\partial Z_5}*\dfrac{\partial Z_5}{\partial y_3}*\dfrac{\partial y_3}{\partial Z_3}*\dfrac{\partial Z_3}{\partial Z_{31}}
+
+=(y_5-y_{out})*f(Z_5)*(1-f(Z_5))*W_{53}*f(Z_3)*(1-f(Z_3))*x_1</script><p>上面结果都是已知值，同理可得其他几个式子。</p>
+<p>则最终的结果为：</p>
+<script type="math/tex; mode=display">\begin{cases}
+  W_{31}=W_{31}-\dfrac{\partial C}{\partial W_{31}}=0.09661944 \\
+  W_{32}=W_{32}-\dfrac{\partial C}{\partial W_{32}}=0.78985831 \\
+  W_{41}=W_{41}-\dfrac{\partial C}{\partial W_{41}}=0.39661944 \\
+  W_{42}=W_{42}-\dfrac{\partial C}{\partial W_{42}}=0.58985831 
+  \end{cases}</script><p>  再按照这个权重参数进行一遍正向传播得出的Error为0.0165，这个值比原来的0.01805要小，则继续迭代，不断修正权值，使得代价函数越来越小，预测值也不段逼近0.5，直到最后得到无限逼近真实值对应的权值。</p>
+<h4 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h4><p>从以上反向传播的推导过程可以看出，计算代价函数对最后一层（输出层）的偏导，就为计算倒数第二层的偏导提供了条件，有了倒数第二层的偏导，又可以求出倒数第三层…一直重复这些步骤，就可以将所有层的偏导都计算出来。到这里，想必你就更加清楚什么叫反向传播了吧，其实就是从输出层一层层求偏导。</p>
+<p>其实，对每层进行求偏导，按照多元函数的链式法则操作，如果一上来就求输入层的偏导数，那么就要先求出第2层的偏导数，而第2层的偏导数，要用第3层的偏导数去表达…最后发现最关键的是要求出最后一层（输出层）的偏导数，所以尼，只好从输出层开始求，一步步向输入层方向求偏导。</p>
+<p>最后多说一句哈，大家可能感觉到很多知识和概念都是如此莫名，也就是说科学知识的体系和人类的认知规律经常不一致。比如说在物理学上，时间的定义先于速度，而我们却是先体会到物体运动的快慢，后面才产生时间的概念，皮亚杰的发生认识论就是讲这个问题的，大家可以去看看这位认知方面的祖师爷理论，你应该会更加体会到，神经网络是多么接近人类的认知模式。</p>
+<hr>
+<h4 id="more-information"><a href="#more-information" class="headerlink" title="more information"></a>more information</h4><p><a href="https://tigerneil.gitbooks.io/neural-networks-and-deep-learning-zh/content/chapter2.html" target="_blank" rel="noopener">How the backpropagation algorithm works</a></p>
+<p><a href="http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html" target="_blank" rel="noopener">Principles of training multi-layer neural network using backpropagation</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果您觉得还不错，就请我喝杯咖啡呗</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="sconglee 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="sconglee 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/18/TensorFlow学习笔记（四）-- 深度神经网络（DNN）模型与前向传播算法/" rel="next" title="TensorFlow学习笔记（四）-- 深度神经网络（DNN）模型与前向传播算法">
+                <i class="fa fa-chevron-left"></i> TensorFlow学习笔记（四）-- 深度神经网络（DNN）模型与前向传播算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/13/TensorFlow Q&A/" rel="prev" title="TensorFlow Q&A">
+                TensorFlow Q&A <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/author.jpg"
+                alt="sconglee" />
+            
+              <p class="site-author-name" itemprop="name">sconglee</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sconglee" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:sconglee@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.icourse163.org/course/PKU-1002536002" title="北京大学人工智能实践" target="_blank">北京大学人工智能实践</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNN反向传播算法-for-what"><span class="nav-number">1.</span> <span class="nav-text">DNN反向传播算法 for what ?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNN反向传播算法的基本思路"><span class="nav-number">2.</span> <span class="nav-text">DNN反向传播算法的基本思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#summary"><span class="nav-number">3.</span> <span class="nav-text">summary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#more-information"><span class="nav-number">4.</span> <span class="nav-text">more information</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sconglee</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_pv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("hpXvTD2eWEzFMVtUhglNX5cR-gzGzoHsz", "URi4FXsVhaULJvSkNl5Aq3qX");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="custom_mathjax_source">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
