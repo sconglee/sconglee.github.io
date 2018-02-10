@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2018/01/04/New%20checkpoint%20format%20in%20TensorFlow/</loc>
+    <lastmod>2018-02-09T15:14:08.177Z</lastmod>
+    <data>
+        <display>
+        <title>New checkpoint format in TensorFlow</title>
+        <pubTime>2018-01-04T03:40:42.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/07/20/Java%E6%B3%A8%E8%A7%A3/</loc>
+    <lastmod>2018-02-09T15:06:02.337Z</lastmod>
+    <data>
+        <display>
+        <title>java注解</title>
+        <pubTime>2016-07-20T15:55:30.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/09/11/%E5%9C%A8UEFI%E6%A8%A1%E5%BC%8F%E4%B8%8B%E5%AE%89%E8%A3%85Ubuntu16.04%E4%B8%8EWindows%E5%8F%8C%E5%90%AF%E5%8A%A8/</loc>
+    <lastmod>2018-02-09T14:12:43.218Z</lastmod>
+    <data>
+        <display>
+        <title>在UEFI模式下安装Ubuntu16.04与Windows双启动</title>
+        <pubTime>2017-09-11T14:35:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/08/08/ImageNet%20Classification%20with%20Deep%20Convolutional%20Neural%20Networks%20%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-02-09T14:12:07.195Z</lastmod>
+    <data>
+        <display>
+        <title>ImageNet Classification with Deep Convolutional Neural Networks 笔记</title>
+        <pubTime>2017-08-08T08:35:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/08/03/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%83%EF%BC%89--%20%E5%9F%BA%E4%BA%8ECNN%E7%9A%84%E7%9B%AE%E6%A0%87%E5%88%86%E7%B1%BB%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2018-02-09T14:11:33.685Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（七）-- 基于CNN的目标分类框架</title>
+        <pubTime>2017-08-03T12:40:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/07/31/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%85%AD%EF%BC%89--%20%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88CNN%EF%BC%89%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2018-02-09T14:10:59.544Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法</title>
+        <pubTime>2017-07-31T14:35:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/07/13/TensorFlow%20Q&A/</loc>
+    <lastmod>2018-02-09T14:10:25.673Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow Q&A</title>
+        <pubTime>2017-07-13T09:40:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/06/27/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89--%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88DNN%EF%BC%89%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95%EF%BC%88BP%EF%BC%89/</loc>
+    <lastmod>2018-02-09T14:09:46.468Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（五）-- 深度神经网络（DNN）反向传播算法（BP）</title>
+        <pubTime>2017-06-27T12:44:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/06/18/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89--%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88DNN%EF%BC%89%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2018-02-09T14:08:52.857Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（四）-- 深度神经网络（DNN）模型与前向传播算法</title>
+        <pubTime>2017-06-18T14:45:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/06/12/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89--%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88DNN%EF%BC%89%E4%BC%98%E5%8C%96%E4%B9%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2018-02-09T14:07:43.711Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（三）-- 深度神经网络（DNN）优化之损失函数</title>
+        <pubTime>2017-06-12T12:50:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/05/15/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89--%20%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2018-02-09T14:06:26.689Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（一）-- 编程模型</title>
+        <pubTime>2017-05-15T09:50:11.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/11/10/Hibernate%20ORM/</loc>
+    <lastmod>2018-02-09T14:05:39.386Z</lastmod>
+    <data>
+        <display>
+        <title>Hibernate ORM</title>
+        <pubTime>2016-11-10T14:50:52.000Z</pubTime>
+        
+        <tag>ORM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/11/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/</loc>
+    <lastmod>2018-02-09T14:05:02.755Z</lastmod>
+    <data>
+        <display>
+        <title>数据库连接池</title>
+        <pubTime>2016-11-05T12:40:52.000Z</pubTime>
+        
+        <tag>ORM</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/10/27/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2018-02-09T14:04:00.997Z</lastmod>
+    <data>
+        <display>
+        <title>Spring事务管理</title>
+        <pubTime>2016-10-27T08:40:52.000Z</pubTime>
+        
+        <tag>Spring</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/10/20/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
+    <lastmod>2018-02-09T14:03:15.634Z</lastmod>
+    <data>
+        <display>
+        <title>数据库事务隔离级别</title>
+        <pubTime>2016-10-20T13:45:52.000Z</pubTime>
+        
+        <tag>database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/10/12/MySql%20ABC/</loc>
+    <lastmod>2018-02-09T14:02:42.109Z</lastmod>
+    <data>
+        <display>
+        <title>MySql ABC</title>
+        <pubTime>2016-10-12T13:50:11.000Z</pubTime>
+        
+        <tag>database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/10/09/transient%E5%85%B3%E9%94%AE%E5%AD%97/</loc>
+    <lastmod>2018-02-09T14:02:12.836Z</lastmod>
+    <data>
+        <display>
+        <title>transient关键字</title>
+        <pubTime>2016-10-09T15:50:11.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/09/20/Mysql-InnoDB%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2018-02-09T14:01:44.808Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql-InnoDB索引</title>
+        <pubTime>2016-09-20T15:30:52.000Z</pubTime>
+        
+        <tag>database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/09/28/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%94%81%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2018-02-09T14:01:22.016Z</lastmod>
+    <data>
+        <display>
+        <title>数据库的锁机制</title>
+        <pubTime>2016-09-28T12:30:52.000Z</pubTime>
+        
+        <tag>database</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/08/10/ClassLoader%20%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-02-09T13:59:09.142Z</lastmod>
+    <data>
+        <display>
+        <title>ClassLoader 工作原理与模式</title>
+        <pubTime>2016-08-10T15:50:45.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/08/03/HashMap%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2018-02-09T13:58:36.186Z</lastmod>
+    <data>
+        <display>
+        <title>HashMap源码解析</title>
+        <pubTime>2016-08-03T13:46:52.000Z</pubTime>
+        
+        <tag>数据结构</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/07/10/JVM%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86--GC/</loc>
+    <lastmod>2018-02-09T13:56:59.741Z</lastmod>
+    <data>
+        <display>
+        <title>JVM内存管理--GC</title>
+        <pubTime>2016-07-10T14:50:11.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2016/07/02/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2018-02-09T13:55:21.633Z</lastmod>
+    <data>
+        <display>
+        <title>java内存模型</title>
+        <pubTime>2016-07-02T12:55:52.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/06/04/TensorFlow%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89--%20%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%88DNN%EF%BC%89%E4%BC%98%E5%8C%96%E4%B9%8B%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2018-02-08T13:41:03.013Z</lastmod>
+    <data>
+        <display>
+        <title>TensorFlow学习笔记（二）-- 深度神经网络（DNN）优化之激活函数</title>
+        <pubTime>2017-06-04T14:46:52.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://neuralvision.cn/2017/11/30/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E7%BA%A7%E5%88%AB%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%A3%85%E6%9C%BA%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-02-07T09:06:13.292Z</lastmod>
+    <data>
+        <display>
+        <title>实验室级别深度学习装机教程</title>
+        <pubTime>2017-11-30T05:40:42.000Z</pubTime>
+        
+        <tag>深度学习</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+</urlset>

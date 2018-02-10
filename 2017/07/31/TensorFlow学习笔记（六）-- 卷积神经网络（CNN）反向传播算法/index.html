@@ -83,20 +83,20 @@
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法">
-<meta property="og:url" content="http://yoursite.com/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/index.html">
+<meta property="og:url" content="http://neuralvision.cn/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/index.html">
 <meta property="og:site_name" content="sconglee">
 <meta property="og:description" content="回顾DNN反向传播算法在前面已经对DNN反向传播算法做了介绍，这里只给出简单推导过程   有了$W$,$b$梯度表达式，就可以用梯度下降法来优化$W$,$b$，求出最终的所有$W$,$b$的值。 现在我们想把同样的思想用到CNN中，很明显，CNN有些不同的地方，不能直接去套用DNN的反向传播算法的公式。 CNN反向传播算法思想要想套用DNN的反向传播算法到CNN，要解决以下问题：  池化层在前向传">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/figures/2017-07-31-01.jpg">
-<meta property="og:image" content="http://yoursite.com/images/figures/2017-07-31-02.jpg">
-<meta property="og:image" content="http://yoursite.com/images/figures/2017-07-31-03.jpg">
-<meta property="og:image" content="http://yoursite.com/images/figures/2017-07-31-04.jpg">
-<meta property="og:image" content="http://yoursite.com/images/figures/2017-07-31-05.jpg">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2017-07-31-01.jpg">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2017-07-31-02.jpg">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2017-07-31-03.jpg">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2017-07-31-04.jpg">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2017-07-31-05.jpg">
 <meta property="og:updated_time" content="2018-02-09T14:10:59.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法">
 <meta name="twitter:description" content="回顾DNN反向传播算法在前面已经对DNN反向传播算法做了介绍，这里只给出简单推导过程   有了$W$,$b$梯度表达式，就可以用梯度下降法来优化$W$,$b$，求出最终的所有$W$,$b$的值。 现在我们想把同样的思想用到CNN中，很明显，CNN有些不同的地方，不能直接去套用DNN的反向传播算法的公式。 CNN反向传播算法思想要想套用DNN的反向传播算法到CNN，要解决以下问题：  池化层在前向传">
-<meta name="twitter:image" content="http://yoursite.com/images/figures/2017-07-31-01.jpg">
+<meta name="twitter:image" content="http://neuralvision.cn/images/figures/2017-07-31-01.jpg">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/"/>
+  <link rel="canonical" href="http://neuralvision.cn/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/"/>
 
 
 
@@ -283,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/">
+    <link itemprop="mainEntityOfPage" href="http://neuralvision.cn/2017/07/31/TensorFlow学习笔记（六）-- 卷积神经网络（CNN）反向传播算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sconglee">

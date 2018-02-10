@@ -83,23 +83,23 @@
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存管理--GC">
-<meta property="og:url" content="http://yoursite.com/2016/07/10/JVM内存管理--GC/index.html">
+<meta property="og:url" content="http://neuralvision.cn/2016/07/10/JVM内存管理--GC/index.html">
 <meta property="og:site_name" content="sconglee">
 <meta property="og:description" content="官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。 JVM主要管理两类内存： 堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。 非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，J">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-01.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-02.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-03.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-04.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-05.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-06.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-07.png">
-<meta property="og:image" content="http://yoursite.com/images/figures/2016-07-10-08.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-01.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-02.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-03.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-04.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-05.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-06.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-07.png">
+<meta property="og:image" content="http://neuralvision.cn/images/figures/2016-07-10-08.png">
 <meta property="og:updated_time" content="2018-02-09T13:56:59.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存管理--GC">
 <meta name="twitter:description" content="官方解释：Java虚拟机具有一个堆Heap，堆是运行时数据区域，所有类实例和和数组的内存均从此分配。 JVM主要管理两类内存： 堆—-是在Java虚拟机启动时创建，Java代码可及的内存，留给开发人员使用—即存放java对象。 非堆内存—-是JVM留给自己用的，包含方法区（用于存放java类的相关信息，如类名、访问修饰符、常量池、字段描述、方法描述等，在类加载器加载class文件到内存中的时候，J">
-<meta name="twitter:image" content="http://yoursite.com/images/figures/2016-07-10-01.png">
+<meta name="twitter:image" content="http://neuralvision.cn/images/figures/2016-07-10-01.png">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/10/JVM内存管理--GC/"/>
+  <link rel="canonical" href="http://neuralvision.cn/2016/07/10/JVM内存管理--GC/"/>
 
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/10/JVM内存管理--GC/">
+    <link itemprop="mainEntityOfPage" href="http://neuralvision.cn/2016/07/10/JVM内存管理--GC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sconglee">
